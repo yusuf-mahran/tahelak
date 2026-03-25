@@ -73,8 +73,7 @@
   body {
     @apply scroll-smooth;
   }
-  body,
-  body > div {
+  body {
     @apply bg-background text-foreground relative min-h-screen;
   }
   body::before {

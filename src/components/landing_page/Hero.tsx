@@ -20,7 +20,7 @@ export const Hero = () => {
   const { hero } = localeData.landingData;
 
   return (
-    <header className="mx-auto py-12 lg:py-24">
+    <header className="mx-auto py-12 lg:py-24 relative">
       <Section
         applyPadding={false}
         className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center mt-20 mb-40 overflow-x-hidden overflow-y-hidden max-w-430"
@@ -35,7 +35,7 @@ export const Hero = () => {
                   </span>
                 ) : (
                   word + ' '
-                )
+                ),
               )}
             </TypographyH1>
             <TypographyLead className="text-xl text-muted-foreground">

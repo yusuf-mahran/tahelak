@@ -42,13 +42,11 @@ export default async function RootLayout({
           locale === 'ar' ? cairo.className : tomorrow.className
         } antialiased`}
       >
-        {/* <div className="overflow-x-hidden"> */}
         <LanguageProvider initialLocale={locale} initialData={initialData}>
           <Navbar />
           {children}
           <Footer />
         </LanguageProvider>
-        {/* </div> */}
       </body>
     </html>
   );
