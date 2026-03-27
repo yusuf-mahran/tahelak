@@ -70,4 +70,47 @@ export const landingData = {
     copyright: 'All rights reserved - Tahelak © ',
     socialText: 'Follow us on:',
   },
+  plans: [
+    {
+      stripeId: 'price_1TFRxQDAyKi5AyZAwO1MEZWq',
+      name: 'Basic Plan',
+      price: '99',
+      description: 'Ideal for startups',
+      features: [
+        '1 User',
+        '100 Monthly Operations',
+        'Limited Technical Support',
+        'Basic Reports',
+      ],
+      popular: false,
+    },
+    {
+      stripeId: 'price_1TFRy4DAyKi5AyZAXqv2EXS8',
+      name: 'Pro Plan',
+      price: '249',
+      description: 'Most popular for medium organizations',
+      features: [
+        '5 Users',
+        '500 Monthly Operations',
+        'Advanced Technical Support',
+        'Advanced Reports',
+        'Instant Alerts',
+      ],
+      popular: true,
+    },
+    {
+      stripeId: 'price_1TFRyrDAyKi5AyZAdtiP2NzU',
+      name: 'Enterprise Plan',
+      price: '499',
+      description: 'Full power for large organizations',
+      features: [
+        'Unlimited Users',
+        'Unlimited Operations',
+        'Dedicated Account Manager',
+        'Custom Software Integration',
+        'Trial Access to New Features',
+      ],
+      popular: false,
+    },
+  ],
 };

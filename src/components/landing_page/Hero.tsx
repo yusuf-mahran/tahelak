@@ -47,7 +47,7 @@ export const Hero = () => {
               <Link href="/">{hero.cta1}</Link>
             </Button>
             <Button variant="outline" size="lg" className="px-8">
-              <Link href="/Registration">{hero.cta2}</Link>
+              <Link href="/dashboard">{hero.cta2}</Link>
             </Button>
           </div>
         </div>

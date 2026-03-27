@@ -85,7 +85,7 @@ export const Navbar = () => {
             <Search />
           ) : (
             <Button variant="default" size="default">
-              <Link href="/Registration">{localeData?.ctaMenu.title.new}</Link>
+              <Link href="/dashboard">{localeData?.ctaMenu.title.new}</Link>
             </Button>
           )}
         </div>
@@ -163,7 +163,7 @@ export const Navbar = () => {
       <div
         className={cn(
           'md:hidden border-t border-border/40 bg-background overflow-hidden transition-all duration-300 ease-in-out',
-          isSearchOpen ? 'max-h-20 opacity-100' : 'max-h-0 opacity-0'
+          isSearchOpen ? 'max-h-20 opacity-100' : 'max-h-0 opacity-0',
         )}
       >
         <div className="container mx-auto py-3 px-4">
@@ -175,7 +175,7 @@ export const Navbar = () => {
       <div
         className={cn(
           'md:hidden border-t border-border/40 bg-background overflow-hidden transition-all duration-300 ease-in-out',
-          isOpen ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'
+          isOpen ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0',
         )}
       >
         <div className="container mx-auto py-4 px-4 flex flex-col gap-4">

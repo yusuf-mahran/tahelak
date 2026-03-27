@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import { Cairo, Tomorrow } from 'next/font/google';
 import { cookies } from 'next/headers';
 import { LanguageProvider } from '../context/LanguageContext';
+import { AuthProvider } from '../context/AuthContext';
 import './globals.css';
 import { getDictionary } from '@/lib/get-dictionary';
 import { Navbar } from '@/components/shared/Navbar';
@@ -31,8 +32,8 @@ export default async function RootLayout({
 }) {
   const cookieStore = await cookies();
   const localeCookie = cookieStore.get('NEXT_LOCALE')?.value;
-  const locale = localeCookie === 'ar' ? 'ar' : 'en';
-  const dir = locale === 'ar' ? 'rtl' : 'ltr';
+  const locale = localeCookie === 'en' ? 'en' : 'ar';
+  const dir = locale === 'en' ? 'ltr' : 'rtl';
   const initialData: LANGUAGE_DATA = await getDictionary(locale);
 
   return (
@@ -42,11 +43,13 @@ export default async function RootLayout({
           locale === 'ar' ? cairo.className : tomorrow.className
         } antialiased`}
       >
-        <LanguageProvider initialLocale={locale} initialData={initialData}>
-          <Navbar />
-          {children}
-          <Footer />
-        </LanguageProvider>
+        <AuthProvider>
+          <LanguageProvider initialLocale={locale} initialData={initialData}>
+            <Navbar />
+            {children}
+            <Footer />
+          </LanguageProvider>
+        </AuthProvider>
       </body>
     </html>
   );

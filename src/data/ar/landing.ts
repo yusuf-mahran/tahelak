@@ -70,4 +70,47 @@ export const landingData = {
     copyright: 'حقوق الطبع والنشر محفوظة لشركة تأهيلك © ',
     socialText: 'تابعنا على:',
   },
+  plans: [
+    {
+      stripeId: 'price_1TFRxQDAyKi5AyZAwO1MEZWq',
+      name: 'الخطة الأساسية',
+      price: '99',
+      description: 'مثالية للمؤسسات الناشئة',
+      features: [
+        'مستخدم واحد',
+        '100 عملية شهرية',
+        'دعم فني محدود',
+        'تقارير أساسية',
+      ],
+      popular: false,
+    },
+    {
+      stripeId: 'price_1TFRy4DAyKi5AyZAXqv2EXS8',
+      name: 'الخطة الاحترافية',
+      price: '249',
+      description: 'الأكثر اختياراً للمؤسسات المتوسطة',
+      features: [
+        '5 مستخدمين',
+        '500 عملية شهرية',
+        'دعم فني متقدم',
+        'تقارير متقدمة',
+        'تنبيهات فورية',
+      ],
+      popular: true,
+    },
+    {
+      stripeId: 'price_1TFRyrDAyKi5AyZAdtiP2NzU',
+      name: 'خطة المؤسسات',
+      price: '499',
+      description: 'قوة كاملة للمؤسسات الكبيرة',
+      features: [
+        'مستخدمين غير محدودين',
+        'عمليات غير محدودة',
+        'مدير حساب خاص',
+        'تكامل برمجيات مخصص',
+        'وصول تجريبي للميزات الجديدة',
+      ],
+      popular: false,
+    },
+  ],
 };

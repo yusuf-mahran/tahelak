@@ -39,9 +39,9 @@ export const Footer = () => {
   return (
     <footer
       id="contact"
-      className="w-full border-t border-border bg-primary text-background py-8"
+      className="w-full border-t border-border bg-primary text-background md:h-20 h-28 py-4"
     >
-      <Section className="flex flex-col md:flex-row items-center justify-between gap-4">
+      <Section className="flex flex-col md:flex-row items-center justify-between gap-4 my-auto h-full">
         <div className="flex justify-start items-center gap-4 text-sm">
           <p>
             {footerData?.copyright} {date}
