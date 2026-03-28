@@ -153,9 +153,7 @@ export function RegistrationForm() {
             value={formData.institutionName}
             onChange={handleChange}
             placeholder={registerDict?.institutionName}
-            className={`h-14 text-lg border-gray-300 rounded-lg text-start ${
-              errors.institutionName ? 'border-red-500' : ''
-            }`}
+            className={`h-14 ${errors.institutionName ? 'border-red-500' : ''}`}
           />
           {errors.institutionName && (
             <p className="text-red-500 text-sm px-1">
@@ -169,9 +167,7 @@ export function RegistrationForm() {
             value={formData.institutionType}
             onChange={handleChange}
             placeholder={registerDict?.institutionType}
-            className={`h-14 text-lg border-gray-300 rounded-lg text-start ${
-              errors.institutionType ? 'border-red-500' : ''
-            }`}
+            className={`h-14 text-lg ${errors.institutionType ? 'border-red-500' : ''}`}
           />
           {errors.institutionType && (
             <p className="text-red-500 text-sm px-1">
@@ -186,7 +182,7 @@ export function RegistrationForm() {
             value={formData.institutionLink}
             onChange={handleChange}
             placeholder={registerDict?.institutionLink}
-            className="h-14 text-lg border-gray-300 rounded-lg text-start"
+            className="h-14"
           />
         </div>
         <div className="space-y-1">
@@ -195,9 +191,7 @@ export function RegistrationForm() {
             value={formData.address}
             onChange={handleChange}
             placeholder={registerDict?.address}
-            className={`h-14 text-lg border-gray-300 rounded-lg text-start ${
-              errors.address ? 'border-red-500' : ''
-            }`}
+            className={`h-14 ${errors.address ? 'border-red-500' : ''}`}
           />
           {errors.address && (
             <p className="text-red-500 text-sm px-1">{errors.address}</p>
@@ -211,9 +205,7 @@ export function RegistrationForm() {
             value={formData.email}
             onChange={handleChange}
             placeholder={registerDict?.email}
-            className={`h-14 text-lg border-gray-300 rounded-lg text-start ${
-              errors.email ? 'border-red-500' : ''
-            }`}
+            className={`h-14 ${errors.email ? 'border-red-500' : ''}`}
           />
           {errors.email && (
             <p className="text-red-500 text-sm px-1">{errors.email}</p>
@@ -226,9 +218,7 @@ export function RegistrationForm() {
             value={formData.password}
             onChange={handleChange}
             placeholder={registerDict?.password}
-            className={`h-14 text-lg border-gray-300 rounded-lg text-start ${
-              errors.password ? 'border-red-500' : ''
-            }`}
+            className={`h-14 ${errors.password ? 'border-red-500' : ''}`}
           />
           {errors.password && (
             <p className="text-red-500 text-sm px-1">{errors.password}</p>

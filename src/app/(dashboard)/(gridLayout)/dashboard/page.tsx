@@ -41,7 +41,7 @@ export default async function DashboardPage() {
   ];
 
   return (
-    <div className="space-y-8 text-right" dir="rtl">
+    <div className="space-y-8 text-right">
       <div>
         <TypographyH1 className="text-3xl font-bold tracking-tight">
           نظرة عامة على لوحة التحكم

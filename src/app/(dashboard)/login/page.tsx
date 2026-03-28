@@ -6,7 +6,7 @@ import { Loader2 } from 'lucide-react';
 import { AuthRedirect } from '@/components/auth/ProtectedRoute';
 
 export default function LoginPage() {
-  const { authLoading, isRtl } = useLogin();
+  const { authLoading } = useLogin();
 
   if (authLoading) {
     return (
@@ -18,10 +18,7 @@ export default function LoginPage() {
 
   return (
     <AuthRedirect>
-      <div
-        className="flex items-center justify-center min-h-[80vh] px-4"
-        dir={isRtl ? 'rtl' : 'ltr'}
-      >
+      <div className="flex items-center justify-center min-h-[80vh] px-4">
         <LoginCard />
       </div>
     </AuthRedirect>

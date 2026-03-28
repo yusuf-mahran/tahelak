@@ -113,4 +113,30 @@ export const landingData = {
       popular: false,
     },
   ],
+  paymentMethods: {
+    ctaTitle: 'Complete payment and subscribe',
+    tooltip:
+      'Your payments are protected and encrypted with world-class security standards.',
+    methods: [
+      {
+        title: 'Credit Card',
+        subTitle: 'Card Details',
+        details: ['Card Number', 'Expiry Date', 'CVV'],
+      },
+      {
+        title: 'Wallet',
+        subTitle: 'Wallet Details',
+        details: ['Wallet ID'],
+      },
+      {
+        title: 'Bank Transfer',
+        subTitle: 'Bank Details',
+        details: [
+          'Account Number',
+          'IBAN',
+          'Please send us a transfer screenshot via email after completion.',
+        ],
+      },
+    ],
+  },
 };
