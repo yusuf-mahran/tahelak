@@ -104,11 +104,13 @@ export default function Sidebar() {
           <div className="bg-slate-50 p-2 rounded-lg border border-border">
             <div className="flex items-center gap-2 max-lg:mx-auto max-lg:w-fit">
               <div className="w-6 h-6 rounded-full bg-primary/10 flex items-center justify-center text-primary font-bold text-[10px]">
-                {user?.email?.[0].toUpperCase()}
+                {user?.user_metadata?.institutionName
+                  ? user.user_metadata.institutionName.charAt(0).toUpperCase()
+                  : 'I'}
               </div>
               <div className="flex-1 min-w-0 max-lg:hidden">
                 <p className="text-[10px] font-medium truncate text-slate-600">
-                  {user?.email?.split('@')[0]}
+                  {user?.user_metadata?.institutionName || 'اسم المؤسسة'}
                 </p>
               </div>
             </div>

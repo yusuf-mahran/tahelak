@@ -2,6 +2,7 @@ export const dashboardSidebarItems = [
   {
     id: 'overview',
     title: 'Dashboard',
+    description: 'Overview of hospital performance and statistics',
     href: '/dashboard',
     icon: 'LayoutDashboard',
     action: {
@@ -14,6 +15,7 @@ export const dashboardSidebarItems = [
   {
     id: 'doctors',
     title: 'Doctors',
+    description: 'Manage doctor information and their schedules',
     href: '/dashboard/doctors',
     icon: 'Stethoscope',
     action: {},
@@ -21,6 +23,7 @@ export const dashboardSidebarItems = [
   {
     id: 'managers',
     title: 'Managers',
+    description: 'Manage manager information and their permissions',
     href: '/dashboard/managers',
     icon: 'UserCog',
     action: {},
@@ -28,6 +31,7 @@ export const dashboardSidebarItems = [
   {
     id: 'patients',
     title: 'Patients',
+    description: 'Manage patient information and their medical records',
     href: '/dashboard/patients',
     icon: 'Users',
     action: {},
@@ -35,6 +39,7 @@ export const dashboardSidebarItems = [
   {
     id: 'payment',
     title: 'Payment',
+    description: 'Manage payment transactions and invoices',
     href: '/dashboard/payment',
     icon: 'CreditCard',
     action: {},
@@ -45,6 +50,8 @@ export const registrationSidebarItems = [
   {
     id: 'org',
     title: 'Organization Info',
+    description:
+      'Register your organization information and details to become a part of our family',
     href: '/registration',
     icon: 'Info',
     action: {
@@ -57,6 +64,8 @@ export const registrationSidebarItems = [
   {
     id: 'subscription',
     title: 'Subscription Plans',
+    description:
+      'Flexible plans that suit your organization size and expectations',
     href: '/registration/plans',
     icon: 'FileText',
     action: {},
@@ -64,6 +73,8 @@ export const registrationSidebarItems = [
   {
     id: 'payment',
     title: 'Payment Methods',
+    description:
+      'Choose the payment method that suits you to complete the subscription process',
     href: '/registration/payment',
     icon: 'CreditCard',
     action: {},

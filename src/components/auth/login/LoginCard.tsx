@@ -12,7 +12,6 @@ import { TypographyH1 } from '@/components/ui/typography';
 import { Input } from '@/components/ui/input';
 import { Mail, Lock, LogIn, Loader2 } from 'lucide-react';
 import Link from 'next/link';
-import { cn } from '@/lib/utils';
 import { useLogin } from '@/hooks/useLogin';
 import { useLanguage } from '@/context/LanguageContext';
 
@@ -26,7 +25,6 @@ export default function LoginCard() {
     loading,
     error,
     handleSubmit,
-    isRtl,
   } = useLogin();
 
   const {
@@ -41,7 +39,10 @@ export default function LoginCard() {
   } = localeData?.auth.login || {};
 
   return (
-    <Card className="w-full max-w-md border-slate-200 shadow-lg">
+    <Card className="w-full max-w-md lg:scale-110 bg-background text-muted-foreground border border-border shadow-xl overflow-hidden relative">
+      <div className="absolute top-0 right-0 w-32 h-32 bg-primary/20 blur-3xl -translate-y-1/2 translate-x-1/2 rounded-full" />
+      <div className="absolute bottom-0 left-0 w-24 h-24 bg-primary/10 blur-2xl translate-y-1/2 -translate-x-1/2 rounded-full" />
+
       <CardHeader className="text-center space-y-2">
         <TypographyH1 className="text-3xl lg:text-3xl border-none">
           {title}
@@ -55,16 +56,11 @@ export default function LoginCard() {
         <form onSubmit={handleSubmit} className="space-y-4">
           <div className="space-y-2">
             <div className="relative">
-              <Mail
-                className={cn(
-                  'absolute top-3 h-4 w-4 text-slate-400',
-                  isRtl ? 'right-3' : 'left-3',
-                )}
-              />
+              <Mail className="absolute top-3 h-4 w-4 text-slate-400 start-3" />
               <Input
                 type="email"
                 placeholder={emailPlaceholder}
-                className={cn(isRtl ? 'pr-10 text-right' : 'pl-10 text-left')}
+                className="ps-10"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 required
@@ -74,16 +70,11 @@ export default function LoginCard() {
 
           <div className="space-y-2">
             <div className="relative">
-              <Lock
-                className={cn(
-                  'absolute top-3 h-4 w-4 text-slate-400',
-                  isRtl ? 'right-3' : 'left-3',
-                )}
-              />
+              <Lock className="absolute top-3 h-4 w-4 text-slate-400 start-3" />
               <Input
                 type="password"
                 placeholder={passwordPlaceholder}
-                className={cn(isRtl ? 'pr-10 text-right' : 'pl-10 text-left')}
+                className="ps-10"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 required
@@ -92,23 +83,14 @@ export default function LoginCard() {
           </div>
 
           {error && (
-            <p
-              className={cn(
-                'text-xs text-destructive',
-                isRtl ? 'text-right' : 'text-left',
-              )}
-            >
-              {error}
-            </p>
+            <p className="text-xs text-destructive text-start">{error}</p>
           )}
 
           <Button type="submit" className="w-full" disabled={loading}>
             {loading ? (
-              <Loader2
-                className={cn('h-4 w-4 animate-spin', isRtl ? 'ml-2' : 'mr-2')}
-              />
+              <Loader2 className="h-4 w-4 animate-spin me-2 mt-1" />
             ) : (
-              <LogIn className={cn('h-4 w-4', isRtl ? 'ml-2' : 'mr-2')} />
+              <LogIn className="h-4 w-4 me-2 mt-1" />
             )}
             {submitButton}
           </Button>

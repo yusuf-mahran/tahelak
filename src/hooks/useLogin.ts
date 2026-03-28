@@ -7,7 +7,7 @@ import { useLanguage } from '@/context/LanguageContext';
 
 export function useLogin() {
   const { user, signIn, isLoading: authLoading } = useAuth();
-  const { localeData, locale } = useLanguage();
+  const { localeData } = useLanguage();
   const router = useRouter();
 
   const [email, setEmail] = useState('');
@@ -53,6 +53,5 @@ export function useLogin() {
     handleSubmit,
     authLoading,
     authDict,
-    isRtl: locale === 'ar',
   };
 }

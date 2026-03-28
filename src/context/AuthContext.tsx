@@ -3,6 +3,7 @@
 import { createContext, useContext, useEffect, useState } from 'react';
 import { createClient } from '@/lib/supabase/client';
 import { Session, User } from '@supabase/supabase-js';
+import { hashPassword } from '@/lib/utils';
 
 export type REGISTRATION_DATA = {
   institutionName: string;
@@ -12,7 +13,12 @@ export type REGISTRATION_DATA = {
   doctorsCount: number;
   email: string;
   password: string;
-  selectedPlan?: string;
+  selectedPlan?:
+    | {
+        stripeId: string;
+        price: string;
+      }
+    | undefined;
 };
 
 type AuthContextType = {
@@ -21,7 +27,7 @@ type AuthContextType = {
   isLoading: boolean;
   signOut: () => Promise<void>;
   signIn: (email: string, password: string) => Promise<void>;
-  signUp: (email: string, password: string) => Promise<void>;
+  signUp: () => Promise<void>;
   registrationData: REGISTRATION_DATA | null;
   setRegistrationData: (data: REGISTRATION_DATA) => void;
   syncRegistrationData: (
@@ -38,6 +44,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [isLoading, setIsLoading] = useState(true);
   const [registrationData, setRegistrationData] =
     useState<REGISTRATION_DATA | null>(null);
+  const [updateSession, setUpdateSession] = useState(false);
   const supabase = createClient();
 
   // Initialize from context or localStorage
@@ -55,7 +62,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         email: data?.email || '',
         password: '', // Never restore password from storage
         doctorsCount: count || 30,
-        selectedPlan: data?.selectedPlan || '',
+        selectedPlan: data?.selectedPlan || undefined,
       });
     };
 
@@ -83,6 +90,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
           email: '',
           password: '',
           doctorsCount: 30,
+          selectedPlan: undefined,
         }),
         ...data,
       } as REGISTRATION_DATA;
@@ -108,6 +116,8 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
   useEffect(() => {
     const setData = async () => {
+      setUpdateSession(false);
+
       const {
         data: { session },
         error,
@@ -133,26 +143,88 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     return () => {
       subscription.unsubscribe();
     };
-  }, [supabase]);
+  }, [supabase, updateSession]);
 
   const signOut = async () => {
-    await supabase.auth.signOut();
+    try {
+      const response = await fetch('/api/auth/sign-out', {
+        method: 'POST',
+      });
+      if (!response.ok) {
+        const error = await response.json();
+        throw new Error(error.error || 'Failed to sign out');
+      }
+      setSession(null);
+      setUser(null);
+    } catch (error) {
+      console.error('Error signing out:', error);
+      throw error;
+    }
   };
 
   const signIn = async (email: string, password: string) => {
-    const { error } = await supabase.auth.signInWithPassword({
-      email,
-      password,
+    const hashedPassword = await hashPassword(password);
+    const response = await fetch('/api/auth/sign-in', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email, password: hashedPassword }),
     });
-    if (error) throw error;
+
+    const result = await response.json();
+    if (!response.ok) {
+      throw new Error(result.error || 'Failed to sign in');
+    }
+
+    setSession(result.data.session);
+    setUser(result.data.user);
+    setRegistrationData(null);
+    localStorage.removeItem('registration_data');
   };
 
-  const signUp = async (email: string, password: string) => {
-    const { error } = await supabase.auth.signUp({
-      email,
-      password,
-    });
-    if (error) throw error;
+  const signUp = async () => {
+    try {
+      if (!registrationData) {
+        throw new Error('Registration data is missing');
+      }
+
+      const requiredFields: (keyof REGISTRATION_DATA)[] = [
+        'institutionName',
+        'institutionType',
+        'address',
+        'doctorsCount',
+        'email',
+        'password',
+      ];
+
+      const missingFields = requiredFields.filter(
+        (field) => !registrationData[field],
+      );
+
+      if (missingFields.length > 0) {
+        throw new Error(
+          `Please fill in all required fields: ${missingFields.join(', ')}`,
+        );
+      }
+
+      const hashedPassword = await hashPassword(registrationData.password);
+
+      const response = await fetch('/api/auth/sign-up', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ ...registrationData, password: hashedPassword }),
+      });
+
+      const result = await response.json();
+      if (!response.ok) {
+        throw new Error(result.error || 'Failed to sign up');
+      }
+
+      signIn(registrationData.email, registrationData.password);
+      setRegistrationData(null);
+      localStorage.removeItem('registration_data');
+    } catch (error) {
+      console.error('Error signing up:', error);
+    }
   };
 
   return (
