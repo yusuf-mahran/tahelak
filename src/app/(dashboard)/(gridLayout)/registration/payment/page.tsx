@@ -19,27 +19,57 @@ import {
   BadgeCheck,
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
-import { useState } from 'react';
-import { useAuth } from '@/context/AuthContext';
+import { useEffect, useState } from 'react';
 import { useLanguage } from '@/context/LanguageContext';
+import { useRegistration } from '@/hooks/auth/useRegistration';
+import { useRouter } from 'next/navigation';
+import { useToast } from '@/hooks/useToast';
 
 export default function PaymentPage() {
   const [method, setMethod] = useState<'card' | 'wallet' | 'bank'>('card');
-  const { signUp, registrationData } = useAuth();
+  const { handleSignUp, registrationData, localDataLoaded } = useRegistration();
   const { localeData, locale } = useLanguage();
+  const router = useRouter();
+  const { showToast } = useToast();
 
   const isAr = locale === 'ar';
 
-  const selectedPlan = registrationData?.selectedPlan;
+  const selectedPlan = registrationData?.subscriptionPlan;
   const planInfo = localeData?.landingData.plans.find(
-    (p) => p.stripeId === selectedPlan?.stripeId,
+    (p) => p.id === selectedPlan?.id,
   );
+
+  useEffect(() => {
+    if (!localDataLoaded) return;
+    if (
+      !registrationData?.email ||
+      !registrationData?.password ||
+      !registrationData?.name ||
+      !registrationData?.orgName ||
+      !registrationData?.orgAddress
+    ) {
+      router.push('/registration?error=true');
+      return;
+    }
+    if (registrationData?.subscriptionPlan.id === '') {
+      router.push('/registration/plans');
+      showToast({
+        title: isAr ? 'خطأ في التسجيل' : 'Registration Error',
+        description: isAr
+          ? 'يرجى اختيار باقة اشتراك قبل المتابعة.'
+          : 'Please select a subscription plan before proceeding.',
+        type: 'error',
+      });
+      return;
+    }
+  }, [registrationData, router, localDataLoaded, showToast, isAr]);
 
   return (
     <div className="grid gap-8 lg:grid-cols-5">
       <div className="lg:col-span-3 space-y-6">
         <div className="grid grid-cols-3 gap-4">
           <button
+            type="button"
             onClick={() => setMethod('card')}
             className={cn(
               'p-4 rounded-xl border-2 transition-all flex flex-col items-center gap-3 font-bold text-sm',
@@ -52,6 +82,7 @@ export default function PaymentPage() {
             <span>{isAr ? 'بطاقة بنكية' : 'Bank Card'}</span>
           </button>
           <button
+            type="button"
             onClick={() => setMethod('wallet')}
             className={cn(
               'p-4 rounded-xl border-2 transition-all flex flex-col items-center gap-3 font-bold text-sm',
@@ -64,6 +95,7 @@ export default function PaymentPage() {
             <span>{isAr ? 'محفظة إلكترونية' : 'E-Wallet'}</span>
           </button>
           <button
+            type="button"
             onClick={() => setMethod('bank')}
             className={cn(
               'p-4 rounded-xl border-2 transition-all flex flex-col items-center gap-3 font-bold text-sm',
@@ -85,39 +117,21 @@ export default function PaymentPage() {
           </CardHeader>
           <CardContent className="space-y-6">
             {method === 'card' && (
-              <div className="space-y-4">
+              <div className="space-y-6">
                 <div className="space-y-2">
-                  <label className="text-sm font-bold text-muted-foreground">
-                    {isAr ? 'رقم البطاقة' : 'Card Number'}
-                  </label>
-                  <Input
-                    placeholder="0000 0000 0000 0000"
-                    className={cn(
-                      'font-mono tracking-widest border-border bg-input text-start',
-                    )}
-                  />
+                  <Input placeholder={isAr ? 'رقم البطاقة' : 'Card Number'} />
                 </div>
-                <div className="grid grid-cols-2 gap-4">
-                  <div className="space-y-2">
-                    <label className="text-sm font-bold text-muted-foreground">
-                      CVV
-                    </label>
-                    <Input
-                      placeholder="***"
-                      className={cn(
-                        'font-mono border-border bg-input text-start',
-                      )}
-                    />
+                <div className="grid grid-cols-6 gap-4">
+                  <div className="space-y-2 col-span-2">
+                    <Input placeholder="CVV" />
                   </div>
-                  <div className="space-y-2">
-                    <label className="text-sm font-bold text-muted-foreground">
-                      {isAr ? 'تاريخ الانتهاء' : 'Expiry Date'}
-                    </label>
+                  <div className="space-y-2 col-span-4">
                     <Input
-                      placeholder="MM/YY"
-                      className={cn(
-                        'font-mono border-border bg-input text-start',
-                      )}
+                      placeholder={
+                        isAr
+                          ? 'تاريخ الانتهاء (شهر/سنة)'
+                          : 'Expiry Date (MM/YY)'
+                      }
                     />
                   </div>
                 </div>
@@ -126,16 +140,12 @@ export default function PaymentPage() {
             {method === 'wallet' && (
               <div className="space-y-4">
                 <div className="space-y-2">
-                  <label className="text-sm font-bold text-muted-foreground">
-                    {isAr
-                      ? 'رقم الهاتف المرتبط بالمحفظة'
-                      : 'Wallet Phone Number'}
-                  </label>
                   <Input
-                    placeholder="01XXXXXXXXX"
-                    className={cn(
-                      'font-mono border-border bg-input text-start',
-                    )}
+                    placeholder={
+                      isAr
+                        ? 'رقم الهاتف المرتبط بالمحفظة'
+                        : 'Phone Number Connected to Wallet'
+                    }
                   />
                 </div>
               </div>
@@ -164,7 +174,7 @@ export default function PaymentPage() {
             <Button
               variant="default"
               className="w-full text-lg font-bold py-6 rounded-xl shadow-lg shadow-primary/20"
-              onClick={signUp}
+              onClick={handleSignUp}
             >
               <div className="flex items-center gap-2">
                 {isAr ? 'إتمام الدفع واشتراك' : 'Complete Payment & Subscribe'}
@@ -192,20 +202,14 @@ export default function PaymentPage() {
 
           <CardHeader className="relative">
             <CardTitle
-              className={cn(
-                'text-xl font-bold flex items-center gap-3',
-              )}
+              className={cn('text-xl font-bold flex items-center gap-3')}
             >
               <BadgeCheck className="h-6 w-6" />
               {isAr ? 'ملخص الطلب' : 'Order Summary'}
             </CardTitle>
           </CardHeader>
           <CardContent className="space-y-6 relative">
-            <div
-              className={cn(
-                'flex justify-between items-center',
-              )}
-            >
+            <div className={cn('flex justify-between items-center')}>
               <span className="text-sm">
                 {planInfo?.name || (isAr ? 'الباقة المختارة' : 'Selected Plan')}
               </span>
@@ -213,20 +217,12 @@ export default function PaymentPage() {
                 ${planInfo?.price || selectedPlan?.price || '0.00'}
               </span>
             </div>
-            <div
-              className={cn(
-                'flex justify-between items-center',
-              )}
-            >
+            <div className={cn('flex justify-between items-center')}>
               <span className="text-sm">{isAr ? 'دورة الدفع' : 'Billing'}</span>
               <span className="font-bold">{isAr ? 'سنوياً' : 'Annually'}</span>
             </div>
             <div className="h-px bg-muted-foreground/20" />
-            <div
-              className={cn(
-                'flex justify-between items-center',
-              )}
-            >
+            <div className={cn('flex justify-between items-center')}>
               <span className="font-bold">{isAr ? 'الإجمالي' : 'Total'}</span>
               <span className="text-2xl font-black text-surface">
                 ${planInfo?.price || selectedPlan?.price || '0.00'}
@@ -237,9 +233,7 @@ export default function PaymentPage() {
               {planInfo?.features.map((feature, idx) => (
                 <div
                   key={idx}
-                  className={cn(
-                    'flex items-center gap-3 text-xs font-medium',
-                  )}
+                  className={cn('flex items-center gap-3 text-xs font-medium')}
                 >
                   <CheckCircle2 className="h-4 w-4" />
                   <span>{feature}</span>

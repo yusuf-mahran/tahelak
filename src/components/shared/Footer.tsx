@@ -38,7 +38,7 @@ export const Footer = () => {
 
   return (
     <footer
-      id="contact"
+      id="footer"
       className="w-full border-t border-border bg-primary text-background md:h-20 h-28 py-4"
     >
       <Section className="flex flex-col md:flex-row items-center justify-between gap-4 my-auto h-full">

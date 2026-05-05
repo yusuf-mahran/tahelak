@@ -72,9 +72,9 @@ export const landingData = {
   },
   plans: [
     {
-      stripeId: 'price_1TFRxQDAyKi5AyZAwO1MEZWq',
+      id: 'price_1TFRxQDAyKi5AyZAwO1MEZWq',
       name: 'الخطة الأساسية',
-      price: '99',
+      price: 0,
       description: 'مثالية للمؤسسات الناشئة',
       features: [
         'مستخدم واحد',
@@ -85,9 +85,9 @@ export const landingData = {
       popular: false,
     },
     {
-      stripeId: 'price_1TFRy4DAyKi5AyZAXqv2EXS8',
+      id: 'price_1TFRy4DAyKi5AyZAXqv2EXS8',
       name: 'الخطة الاحترافية',
-      price: '249',
+      price: 149,
       description: 'الأكثر اختياراً للمؤسسات المتوسطة',
       features: [
         '5 مستخدمين',
@@ -99,9 +99,9 @@ export const landingData = {
       popular: true,
     },
     {
-      stripeId: 'price_1TFRyrDAyKi5AyZAdtiP2NzU',
+      id: 'price_1TFRyrDAyKi5AyZAdtiP2NzU',
       name: 'خطة المؤسسات',
-      price: '499',
+      price: 299,
       description: 'قوة كاملة للمؤسسات الكبيرة',
       features: [
         'مستخدمين غير محدودين',

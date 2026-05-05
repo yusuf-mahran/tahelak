@@ -1,26 +1,19 @@
 'use client';
 
 import LoginCard from '@/components/auth/login/LoginCard';
-import { useLogin } from '../../../hooks/useLogin';
-import { Loader2 } from 'lucide-react';
-import { AuthRedirect } from '@/components/auth/ProtectedRoute';
+import { useAuth } from '../../../hooks/auth/useAuth';
+import Loader from '@/components/utils/Loader';
 
 export default function LoginPage() {
-  const { authLoading } = useLogin();
+  const { loading: authLoading } = useAuth();
 
   if (authLoading) {
     return (
-      <div className="flex items-center justify-center min-h-screen">
-        <Loader2 className="h-8 w-8 animate-spin text-primary" />
+      <div className="flex items-center justify-center h-full bg-background">
+        <Loader />
       </div>
     );
   }
 
-  return (
-    <AuthRedirect>
-      <div className="flex items-center justify-center min-h-[80vh] px-4">
-        <LoginCard />
-      </div>
-    </AuthRedirect>
-  );
+  return <LoginCard />;
 }
