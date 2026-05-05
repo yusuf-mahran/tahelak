@@ -12,7 +12,7 @@ export const Section = ({
   return (
     <section
       className={`${
-        applyPadding ? 'md:px-20 px-6 max-w-430 mx-auto' : 'mx-auto'
+        applyPadding ? 'md:px-10 px-6 max-w-430 mx-auto' : 'mx-auto'
       } ${className}`}
       {...SectionProps}
     >

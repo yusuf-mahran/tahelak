@@ -1,0 +1,50 @@
+{
+  "folders": [
+    {
+      "name": "🗺️ root",
+      "path": ".",
+    },
+    {
+      "name": "🧮 app",
+      "path": "src/app",
+    },
+    {
+      "name": "🧩 components",
+      "path": "src/components",
+    },
+    {
+      "name": "🪝 hooks",
+      "path": "src/hooks",
+    },
+    {
+      "name": "🌐 context",
+      "path": "src/context",
+    },
+    {
+      "name": "📦 repositories",
+      "path": "src/repositories",
+    },
+    {
+      "name": "📖 lib",
+      "path": "src/lib",
+    },
+    {
+      "name": "📊 data",
+      "path": "src/data",
+    },
+    {
+      "name": "🔤 types",
+      "path": "src/types",
+    },
+  ],
+  "settings": {
+    "files.exclude": {
+      "**/node_modules": true,
+      "**/dist": true,
+      "**/build": true,
+      "**/.git": true,
+      "**/.vscode": true,
+      "**/.next": true,
+    },
+  },
+}

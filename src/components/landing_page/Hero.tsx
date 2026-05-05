@@ -1,6 +1,5 @@
 'use client';
 
-import Link from 'next/link';
 import Image from 'next/image';
 import { useLanguage } from '@/context/LanguageContext';
 import { Button } from '@/components/ui/button';
@@ -11,9 +10,11 @@ import {
 } from '@/components/ui/typography';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Section } from '../utils/Section';
+import { useToast } from '@/hooks/useToast';
 
 export const Hero = () => {
   const { localeData, locale } = useLanguage();
+  const { showToast } = useToast();
 
   if (!localeData) return null;
 
@@ -43,11 +44,25 @@ export const Hero = () => {
             </TypographyLead>
           </div>
           <div className="flex flex-wrap gap-4 justify-center lg:justify-start">
-            <Button size="lg" className="px-8">
-              <Link href="/">{hero.cta1}</Link>
+            <Button
+              onClick={() =>
+                showToast({
+                  title: hero.cta1,
+                  description: localeData.errorsData.featureNotImplemented,
+                })
+              }
+              size="lg"
+              className="px-8"
+            >
+              {hero.cta1}
             </Button>
-            <Button variant="outline" size="lg" className="px-8">
-              <Link href="/dashboard">{hero.cta2}</Link>
+            <Button
+              href="/dashboard"
+              variant="outline"
+              size="lg"
+              className="px-8"
+            >
+              {hero.cta2}
             </Button>
           </div>
         </div>

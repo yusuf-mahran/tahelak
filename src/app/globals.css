@@ -22,6 +22,15 @@
   --color-destructive: var(--destructive);
   --color-destructive-foreground: var(--destructive-foreground);
 
+  --color-success: var(--success);
+  --color-success-foreground: var(--success-foreground);
+
+  --color-warning: var(--warning);
+  --color-warning-foreground: var(--warning-foreground);
+
+  --color-info: var(--info);
+  --color-info-foreground: var(--info-foreground);
+
   --color-border: var(--border);
   --color-input: var(--input);
   --color-ring: var(--ring);
@@ -35,7 +44,7 @@
 
 :root {
   font-size: clamp(0.75rem, 1.5vw + 0.25rem, 0.9rem);
-  @media (450px < width <= 768px) {
+  @media (450px < width < 768px) {
     font-size: clamp(1rem, 1.5vw + 0.5rem, 1.25rem);
   }
   @media (width <= 450px) {
@@ -50,14 +59,24 @@
   --secondary: #e2c5fe; /* slate-100 */
   --secondary-foreground: #210b35;
 
-  --muted: #f5ebff; /* slate-100 */
+  --muted: #e5d4f6; /* slate-100 */
   --muted-foreground: #210b35; /* slate-500 */
 
-  --accent: #f5ebff; /* slate-100 */
+  --accent: #e9d2ff; /* slate-100 */
   --accent-foreground: #210b35;
 
-  --destructive: #ec5b5b; /* red-500 */
+  --destructive: #bd1f1f; /* red-900 */
   --destructive-foreground: #ffffff;
+
+  --success: #24d364; /* green-600 */
+  --success-foreground: #000000;
+
+  --warning: #ffa93f; /* yellow-500 */
+  --warning-foreground: #000000;
+
+  /* purple info */
+  --info: #55178f; /* purple-600 */
+  --info-foreground: #ffffff;
 
   --border: #d6c4e7; /* slate-200 */
   --input: #ffffff;
@@ -66,6 +85,12 @@
   --radius: 0.5rem;
 
   --screen-width: 100vw;
+
+  /* custom toastify progress colors */
+  --toastify-color-progress-info: var(--color-info);
+  --toastify-color-progress-success: var(--color-success);
+  --toastify-color-progress-warning: var(--color-warning);
+  --toastify-color-progress-error: var(--color-destructive);
 }
 
 @layer base {
@@ -76,21 +101,76 @@
   body {
     @apply bg-background text-foreground relative min-h-screen;
   }
-  body::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    pointer-events: none;
-    z-index: -1;
-    opacity: 0.4;
-    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='2' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
-    filter: contrast(120%) brightness(100%);
+  .bg-blur {
+    @apply bg-background/20 backdrop-blur-md;
+  }
+  .bg-blur-dark {
+    @apply bg-black/70 backdrop-blur-sm;
+  }
+  .top-position:last-child #float-menu {
+    @apply max-md:bottom-full max-md:mb-1 max-md:mt-0;
+
+    &.ar-position {
+      @apply origin-bottom-left!;
+    }
+    &.en-position {
+      @apply origin-bottom-right!;
+    }
   }
 }
 
 a,
 button {
   cursor: pointer;
+}
+
+/* customize scrollbars of the web */
+::-webkit-scrollbar,
+*::-webkit-scrollbar {
+  width: 0.4rem;
+}
+::-webkit-scrollbar-track,
+*::-webkit-scrollbar-track {
+  background-color: #0000000f;
+}
+::-webkit-scrollbar-thumb,
+*::-webkit-scrollbar-thumb {
+  background: linear-gradient(45deg, var(--primary), var(--foreground));
+  border-radius: 6px;
+  transition: background-color 1s ease;
+}
+::-webkit-scrollbar-thumb:hover,
+*::-webkit-scrollbar-thumb:hover {
+  background-color: var(--primary);
+}
+
+.loader {
+  width: 70px;
+  aspect-ratio: 1;
+  background:
+    radial-gradient(farthest-side, var(--color-secondary) 90%, #0000)
+      center/16px 16px,
+    radial-gradient(farthest-side, var(--color-primary) 90%, #0000) bottom/12px
+      12px;
+  background-repeat: no-repeat;
+  animation: l17 1s infinite linear;
+  position: relative;
+}
+.loader::before {
+  content: '';
+  position: absolute;
+  width: 8px;
+  aspect-ratio: 1;
+  inset: auto 0 16px;
+  margin: auto;
+  background: var(--color-accent);
+  border-radius: 50%;
+  transform-origin: 50% calc(100% + 10px);
+  animation: inherit;
+  animation-duration: 0.5s;
+}
+@keyframes l17 {
+  100% {
+    transform: rotate(1turn);
+  }
 }

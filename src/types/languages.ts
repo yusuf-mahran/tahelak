@@ -1,3 +1,3 @@
-import enData from '@/data/en';
+import arData from '@/data/ar';
 
-export type LANGUAGE_DATA = typeof enData;
+export type LANGUAGE_DATA = typeof arData;

@@ -72,9 +72,9 @@ export const landingData = {
   },
   plans: [
     {
-      stripeId: 'price_1TFRxQDAyKi5AyZAwO1MEZWq',
+      id: 'price_1TFRxQDAyKi5AyZAwO1MEZWq',
       name: 'Basic Plan',
-      price: '99',
+      price: 0,
       description: 'Ideal for startups',
       features: [
         '1 User',
@@ -85,9 +85,9 @@ export const landingData = {
       popular: false,
     },
     {
-      stripeId: 'price_1TFRy4DAyKi5AyZAXqv2EXS8',
+      id: 'price_1TFRy4DAyKi5AyZAXqv2EXS8',
       name: 'Pro Plan',
-      price: '249',
+      price: 149,
       description: 'Most popular for medium organizations',
       features: [
         '5 Users',
@@ -99,9 +99,9 @@ export const landingData = {
       popular: true,
     },
     {
-      stripeId: 'price_1TFRyrDAyKi5AyZAdtiP2NzU',
+      id: 'price_1TFRyrDAyKi5AyZAdtiP2NzU',
       name: 'Enterprise Plan',
-      price: '499',
+      price: 299,
       description: 'Full power for large organizations',
       features: [
         'Unlimited Users',
@@ -113,4 +113,30 @@ export const landingData = {
       popular: false,
     },
   ],
+  paymentMethods: {
+    ctaTitle: 'Complete payment and subscribe',
+    tooltip:
+      'Your payments are protected and encrypted with world-class security standards.',
+    methods: [
+      {
+        title: 'Credit Card',
+        subTitle: 'Card Details',
+        details: ['Card Number', 'Expiry Date', 'CVV'],
+      },
+      {
+        title: 'Wallet',
+        subTitle: 'Wallet Details',
+        details: ['Wallet ID'],
+      },
+      {
+        title: 'Bank Transfer',
+        subTitle: 'Bank Details',
+        details: [
+          'Account Number',
+          'IBAN',
+          'Please send us a transfer screenshot via email after completion.',
+        ],
+      },
+    ],
+  },
 };

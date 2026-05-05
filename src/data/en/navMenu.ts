@@ -13,14 +13,14 @@ export const navMenu = [
   },
   {
     title: 'Contact Us',
-    link: '/#contact',
+    link: '/#footer',
   },
 ];
 
 export const ctaMenu = {
   search: 'Search for Exercises, Doctors...',
   title: {
-    new: 'Get Started',
-    user: 'Dashboard',
+    register: 'Get Started',
+    login: 'Login',
   },
 };

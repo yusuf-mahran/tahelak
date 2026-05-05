@@ -13,14 +13,14 @@ export const navMenu = [
   },
   {
     title: 'تواصل معنا',
-    link: '/#contact',
+    link: '/#footer',
   },
 ];
 
 export const ctaMenu = {
   search: 'ابحث عن تمارين, أطباء...',
   title: {
-    new: 'ابدأ الآن',
-    user: 'لوحة التحكم',
+    register: 'ابدأ الآن',
+    login: 'تسجيل الدخول',
   },
 };
